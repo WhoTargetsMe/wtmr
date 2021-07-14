@@ -89,7 +89,7 @@ wtm_impressions <- function(only_political = T, from, cntry = "DE", file_path = 
       dplyr::mutate(advertiserId = as.character(advertiserId)) %>%
       dplyr::rename(advetisement_id = id)  %>%
       janitor::clean_names() %>%
-      dplyr::left_join(candidates %>% dplyr::mutate(advertiser_id = facebook_id))
+      dplyr::left_join(candidates %>% dplyr::mutate(advertiser_id = facebook_id), by = "advertiser_id")
 
   } else if (!only_political){
 

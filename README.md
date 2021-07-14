@@ -14,7 +14,7 @@ Targets Me data.
 
 ## Installation
 
-You can install the development version of `wtmr` fromGitHub bwith:
+You can install the development version of `wtmr` from GitHub with:
 
 ``` r
 remotes::install_github("WhoTargetsMe/wtmr")

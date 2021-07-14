@@ -118,7 +118,7 @@ wtm_impressions <- function(only_political = T, from, cntry = "DE", file_path = 
 
   if(!is.null(save_path)){
 
-    saveRDS(save_path)
+    saveRDS(wtm, save_path)
 
     message("File saved!")
 

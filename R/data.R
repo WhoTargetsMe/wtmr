@@ -36,11 +36,12 @@ wtm_connect <- function(){
 #' @param file_path If specified already present data will be updated
 #' @param save_path If specified data will be saved
 #' @return returns a tibble with requested data
-#' @examples
-#' ## Send a message to the world
-#' msg("MESSAGE", crayon::make_style('blue4'), "This is a message to the world")
 #' @export
-wtm_impressions <- function(only_political = T, from, cntry = "DE", file_path = NULL, save_path = NULL){
+wtm_impressions <- function(only_political = T,
+                            from, cntry = "DE",
+                            file_path = NULL,
+                            save_path = NULL,
+                            parse = T){
 
   wtm_db <-  Sys.getenv("wtm_db")
 

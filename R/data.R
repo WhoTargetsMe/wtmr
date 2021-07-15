@@ -34,14 +34,15 @@ wtm_connect <- function(){
 #' @param from the date (as chr) from which you want impressions data
 #' @param cntry from what countr(ies) do you want political data (defaults to "DE"). Can take vectors too.
 #' @param file_path If specified already present data will be updated
-#' @param save_path If specified data will be saved
+#' @param save_path If specified data will be
+#' @param parse When `TRUE` data will be parsed
 #' @return returns a tibble with requested data
 #' @export
 wtm_impressions <- function(only_political = T,
                             from, cntry = "DE",
                             file_path = NULL,
                             save_path = NULL,
-                            parse = T){
+                            parse = F){
 
   wtm_db <-  Sys.getenv("wtm_db")
 
@@ -102,6 +103,15 @@ wtm_impressions <- function(only_political = T,
       dplyr::mutate(advertiserId = as.character(advertiserId)) %>%
       dplyr::rename(advetisement_id = id)  %>%
       janitor::clean_names()
+  }
+
+  if(parse){
+    wtm <- wtm %>%
+        dplyr::rowwise() %>%
+        dplyr::mutate(tg = list(wtm_parse_targeting(waist_targeting_data))) %>%
+        dplyr::ungroup() %>%
+        dplyr::select(-dplyr::contains("waist")) %>%
+        tidyr::unnest(tg)
   }
 
   if(!is.null(file_path)){

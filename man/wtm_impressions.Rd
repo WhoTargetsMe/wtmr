@@ -9,7 +9,8 @@ wtm_impressions(
   from,
   cntry = "DE",
   file_path = NULL,
-  save_path = NULL
+  save_path = NULL,
+  parse = F
 )
 }
 \arguments{
@@ -21,15 +22,13 @@ wtm_impressions(
 
 \item{file_path}{If specified already present data will be updated}
 
-\item{save_path}{If specified data will be saved}
+\item{save_path}{If specified data will be}
+
+\item{parse}{When \code{TRUE} data will be parsed}
 }
 \value{
 returns a tibble with requested data
 }
 \description{
 Connect to database and retrieve (latest) WTM impressions data
-}
-\examples{
-## Send a message to the world
-msg("MESSAGE", crayon::make_style('blue4'), "This is a message to the world")
 }

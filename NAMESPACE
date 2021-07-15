@@ -3,4 +3,8 @@
 export("%>%")
 export(wtm_connect)
 export(wtm_impressions)
+export(wtm_parse_json)
+export(wtm_parse_json2)
+export(wtm_parse_targeting)
+export(wtm_parse_targeting2)
 importFrom(magrittr,"%>%")

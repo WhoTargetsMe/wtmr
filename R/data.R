@@ -110,8 +110,10 @@ wtm_impressions <- function(only_political = T,
         dplyr::rowwise() %>%
         dplyr::mutate(tg = list(wtm_parse_targeting(waist_targeting_data))) %>%
         dplyr::ungroup() %>%
+        dplyr::mutate(temp = waist_targeting_data) %>%
         dplyr::select(-dplyr::contains("waist")) %>%
-        tidyr::unnest(tg)
+        tidyr::unnest(tg) %>%
+        dplyr::rename(waist_targeting_data = temp)
   }
 
   if(!is.null(file_path)){
@@ -134,6 +136,9 @@ wtm_impressions <- function(only_political = T,
     message("File saved!")
 
   }
+
+
+  message(glue::glue("Final data: {nrow(wtm)} rows."))
 
   return(wtm)
 

@@ -19,7 +19,7 @@ wtm_parse_targeting <- function(col, p) {
                    "waist_dynamic_rule")
 
   if(is.na(col)){
-    return(tibble(row_na = T) %>% add_cols(cols_to_add))
+    return(tibble::tibble(row_na = T) %>% add_cols(cols_to_add))
   }
 
   df_raw <- col %>%

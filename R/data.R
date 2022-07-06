@@ -66,6 +66,8 @@ wtm_impressions <- function(only_political = T,
 
   if(only_political){
 
+    print("only political")
+    
     candidates_db <- dplyr::tbl(con, "candidates")
 
     candidates <- candidates_db %>%
@@ -95,7 +97,9 @@ wtm_impressions <- function(only_political = T,
       dplyr::left_join(candidates %>% dplyr::mutate(advertiser_id = facebook_id), by = "advertiser_id")
 
   } else if (!only_political){
-
+    
+    print("not only political")
+    
     ## Create final cleaned dataset
     wtm <- postimpressions_db %>%
       ## only keep after date
@@ -107,6 +111,9 @@ wtm_impressions <- function(only_political = T,
   }
 
   if(parse){
+    
+    print("parse")
+    
     wtm <- wtm %>%
         dplyr::rowwise() %>%
         dplyr::mutate(tg = list(wtm_parse_targeting(waist_targeting_data))) %>%

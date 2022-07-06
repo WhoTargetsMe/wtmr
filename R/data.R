@@ -32,6 +32,7 @@ wtm_connect <- function(){
 #'
 #' @param only_political whether only political impressions should be retrieved (defaults to `TRUE`)
 #' @param from the date (as chr) from which you want impressions data
+#' @param to the date (as chr) to which you want impressions data
 #' @param cntry from what countr(ies) do you want political data (defaults to "DE"). Can take vectors too.
 #' @param file_path If specified already present data will be updated
 #' @param save_path If specified data will be
@@ -39,7 +40,7 @@ wtm_connect <- function(){
 #' @return returns a tibble with requested data
 #' @export
 wtm_impressions <- function(only_political = T,
-                            from, cntry = "DE",
+                            from, to = as.character(Sys.Date()), cntry = "DE",
                             file_path = NULL,
                             save_path = NULL,
                             parse = F){
@@ -83,7 +84,7 @@ wtm_impressions <- function(only_political = T,
 
     wtm_raw <- postimpressions_db %>%
       ## only keep after date, appear in German advertisers
-      dplyr::filter(postLoggedAt >= as.Date(from) & advertiserId %in% candidate_ids) %>%
+      dplyr::filter(postLoggedAt >= as.Date(from) & postLoggedAt <= as.Date(to) & advertiserId %in% candidate_ids) %>%
       dplyr::collect()
 
     ## Create final cleaned dataset
@@ -98,7 +99,7 @@ wtm_impressions <- function(only_political = T,
     ## Create final cleaned dataset
     wtm <- postimpressions_db %>%
       ## only keep after date
-      dplyr::filter(postLoggedAt >= as.Date(from)) %>%
+      dplyr::filter(postLoggedAt >= as.Date(from) & postLoggedAt <= as.Date(to)) %>%
       dplyr::collect() %>%
       dplyr::mutate(advertiserId = as.character(advertiserId)) %>%
       dplyr::rename(advetisement_id = id)  %>%
